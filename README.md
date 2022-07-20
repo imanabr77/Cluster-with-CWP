@@ -52,17 +52,23 @@ and [ sudo reboot ]
 
 - cd /usr/local/src
 
+
 For using Centos7 : 
 - sudo wget http://centos-webpanel.com/cwp-el7-latest
 - sudo sh cwp-el-latest
+
 
 Any Distro :
 - sudo wget http://centos-webpanel.com/cwp-el8-latest
 - sudo sh cwp-el8-latest
 
+
+
 After installing CWP, we enter CWP through server IP and port 2030
 http://server-ip:2030 and use the username and password of the server to enter CWP
 we do.
+
+
 
 After logging in, go to IP Nameservers Edit>DNS Functions from the left menu
 And like the picture below
@@ -71,7 +77,11 @@ we are pressing
 
 From the account section, you can add up to ten accounts in the free version
 
+
+
 #Communication between servers
+
+
 Create an SSH key on each server and upload it to other servers
 Then the following file with
 Run the following command on all three servers
@@ -82,6 +92,7 @@ Run the following command on all three servers
 - node3_ip ns3.domain.com
 
 
+
 # Database clustering
 
 For database clustering, we use a service called cluster galera, which with installation
@@ -90,30 +101,38 @@ Since galera cluster only works with InnoDB type, it is necessary that all table
 Change CWPs to InnoDB type. To work through the CWP of any server
 Go to phpmyadmin and click on the CWP_root database in the root branch
 
+
 And change all the tables except settings to InnoDB for this first
  Click on the desired table, then go to operations
 Go and then go to the engine storage section and change its type to InnoDB and the button
 Press Go.
 
+
 ## Changing the password of the root user in nodes 1 and 2:
+
 
 To do this, we enter the database environment with the **My-sql -P**  command and enter the root password with this command
 we change
 
+
 - ALTER USER 'root'@'localhost' IDENTIFIED BY 'node1_mysql_password';
+
 
 Then we change the old mysql root passwords in the following files in node 2 and node 3.
 
 - /root/.my.cnf >>> change password=
 - /usr/local/cwpsrv/htdocs/resources/admin/include/db_conn.php >> change $db_pass=
 
+
 Then, with the following command, we first stop the database in all three nodes
 
 - sudo systemctl stop mariadb
 
+
 and open the database settings file in all three nodes:
 
 - sudo vim /etc/my.cnf.d/server.cnf
+
 
 and in **[galera]** section
 Add the following settings:
