@@ -150,3 +150,76 @@ Add the following settings:
 - wsrep_node_name="node_name"
 
 ### Description:
+
+- wsrep_cluster_name="mycluster"
+ 
+In this section, we add the name of our cluster, which is the same in all three nodes and can be any expression be .
+
+- wsrep_cluster_address="gcomm://node1_ip,node2_ip.node3_ip"
+
+In this part, we add the IPs of all three nodes with a comma, and this line is the same in all nodes.
+
+- wsrep_node_address="node1_ip"
+
+In this section, we add the IP node of this server, which is different for each server, because it must come
+The path of that server should be placed here.
+
+- wsrep_node_name="node_name"
+
+In this part, we write the name of the node of Netr mode, which is different for each node
+It can be any phrase.
+After completing the settings, exit vim writing mode with esc and save the file changes with x and exit vim.
+we go out
+
+At this point in the main node to the file : /var/lib/mysql/grastste.dat : 
+
+- safe_to_bootstrap: 1 to safe_to_bootstrap: 2
+
+Change it and run the following command: 
+
+- galera_new_cluster
+
+
+Note that this step is only for the main node and there is no need to run these two
+The command is not in other servers.
+Then, with the following command, start the database on 1 node and with the same command on the others
+ We start the nodes.
+
+- sudo systemctl start mariadb
+
+After starting the database on all nodes, enter the database with the following command.
+
+- sudo mysql -p
+
+After executing this command, enter the database password and enter the database environment.
+We run the following command to check the **galera cluster** .
+
+- SHOW STATUS LIKE 'wsrep_cluster_size';
+
+As in the image below, you should see a number greater than zero in the value section, which represents the number
+ is your clustered nodes.
+After clustering, the postfix password on node 2 and node 3 will be changed to the postfix password on node 1.
+For this, it is necessary in the settings file of postfix, dovecot and roundcube
+We replace the postfix password with the new password.
+For this, go to the following files and get the new postfix password from one of these files from node 1
+Copy and paste in these files.
+
+- /usr/local/cwpsrv/var/services/roundcube/plugins/password/config.inc.php
+- /etc/postfix/mysql-relay_domains_maps.cf
+- /etc/postfix/vacation.conf
+- /etc/postfix/mysql-virtual_vacation.cf
+- /etc/postfix/mysql-virtual_alias_pipe_maps.cf
+- /etc/postfix/mysql-virtual_mailbox_limit_maps.cf
+- /etc/postfix/mysql-virtual_alias_default_maps.cf
+- /etc/postfix/mysql-virtual_domains_maps.cf
+- /etc/postfix/mysql-virtual_mailbox_maps.cf
+- /etc/postfix/mysql-virtual_alias_maps.cf
+- /etc/dovecot/dovecot-dict-quota.conf
+- /etc/dovecot/dovecot-mysql.conf
+- /etc/dovecot/dovecot-token.conf
+
+
+====
+
+
+
