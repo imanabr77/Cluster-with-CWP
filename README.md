@@ -119,15 +119,15 @@ and in **[galera]** section
 Add the following settings:
 
 - binlog_format=ROW
-  default_storage_engine=InnoDB
-  innodb_autoinc_lock_mode=2
-  bind-address=0.0.0.0
-  wsrep_on=ON
-  wsrep_provider=/usr/lib64/galera-4/libgalera_smm.so
-  wsrep_cluster_name="mycluster"
-  wsrep_cluster_address="gcomm://node1_ip,node2_ip.node3_ip"
-  wsrep_sst_method=rsync
-  wsrep_node_address="node1_ip"
-  wsrep_node_name="node_name"
+- default_storage_engine=InnoDB
+- innodb_autoinc_lock_mode=2
+- bind-address=0.0.0.0
+- wsrep_on=ON
+- wsrep_provider=/usr/lib64/galera-4/libgalera_smm.so
+- wsrep_cluster_name="mycluster"
+- wsrep_cluster_address="gcomm://node1_ip,node2_ip.node3_ip"
+- wsrep_sst_method=rsync
+- wsrep_node_address="node1_ip"
+- wsrep_node_name="node_name"
 
 ### Description:
