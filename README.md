@@ -14,9 +14,9 @@
 # Config CWP FOR Cluster 
 
 ## Clustering
- > apache
- > DNS
- > My-SQL or Maria-DB
+- >  apache
+- > DNS
+- > My-SQL or Maria-DB
 
 ### I need 3 node for cluster :
 - Node1_ip
